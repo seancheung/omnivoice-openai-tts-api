@@ -1,0 +1,31 @@
+services:
+  omnivoice-cuda:
+    image: ghcr.io/seancheung/omnivoice-openai-tts-api:cuda-latest
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./voices:/voices:ro
+      - ./hf_cache:/root/.cache/huggingface
+    environment:
+      OMNIVOICE_MODEL: "k2-fsa/OmniVoice"
+      OMNIVOICE_DEVICE: "cuda"
+      OMNIVOICE_DTYPE: "float16"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  omnivoice-cpu:
+    image: ghcr.io/seancheung/omnivoice-openai-tts-api:latest
+    ports:
+      - "8010:8000"
+    volumes:
+      - ./voices:/voices:ro
+      - ./hf_cache:/root/.cache/huggingface
+    environment:
+      OMNIVOICE_MODEL: "k2-fsa/OmniVoice"
+      OMNIVOICE_DEVICE: "cpu"
+      OMNIVOICE_DTYPE: "float32"

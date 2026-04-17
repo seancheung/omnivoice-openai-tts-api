@@ -245,7 +245,6 @@ docker buildx build -f docker/Dockerfile.cpu \
 │   └── docker-compose.example.yml
 ├── .github/workflows/
 │   └── build-images.yml       # cuda + cpu 矩阵构建
-├── voices/                    # 运行时挂载
 └── README.md
 ```
 
